@@ -9,8 +9,7 @@ namespace TP3_SIM
     internal class GeneradorAleatorioBarcos
     {
 
-        int numeroLlegadas;
-        int numeroBarcosDescargados;
+        
 
         Random generador = new Random();
         double numeroRandom;

@@ -56,6 +56,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -79,8 +82,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TP 2\TP2-Simulacion\LibGeneradores\LibGeneradores.csproj">
-      <Project>{266f7dea-84ab-4f61-b020-477863f5df8b}</Project>
+    <ProjectReference Include="..\LibGeneradores\LibGeneradores.csproj">
+      <Project>{e9ef1176-b2fc-4cc9-b607-e02465d20a22}</Project>
       <Name>LibGeneradores</Name>
     </ProjectReference>
   </ItemGroup>
