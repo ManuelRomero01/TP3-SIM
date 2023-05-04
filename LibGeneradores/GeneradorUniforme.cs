@@ -14,14 +14,15 @@ namespace LibGeneradores
         private int cantidad;
 
         // Generador de números pseudoaleatorios
-        private Random random = new Random();
+        private Random random;
 
         // Constructor de la clase
-        public GeneradorUniforme(double desde, double hasta, int cant)
+        public GeneradorUniforme(double desde, double hasta, int cant, int mili)
         {
             this.desde = desde;
             this.hasta = hasta;
             this.cantidad = cant;
+            this.random = new Random(DateTime.Now.Millisecond + mili);
         }
 
         // Generador de variables aleatorias uniformes

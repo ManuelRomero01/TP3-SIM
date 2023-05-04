@@ -13,7 +13,7 @@ namespace LibGeneradores
         private int datos;
 
         // Generador de números pseudoaleatorios
-        private Random random = new Random();
+        private Random random = new Random(DateTime.Now.Millisecond + 2);
         private List<double> rnd;
 
         // Constructor de la clase

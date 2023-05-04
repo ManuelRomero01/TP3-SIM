@@ -12,15 +12,21 @@ namespace TP3_SIM
     internal class Montecarlo
     {
         // NRO EXPERIMENTO
-        private int cantidadDias;
+        private int cantidadDias, cantDiasDescarga;
 
         // LLEGADAS Y DESCARGAS
-        private string rndNroLlegadas, rndBarcosDescargadosM1, rndBarcosDescargadosM2;
-        private int  nroLlegadas, nroBarcosDescargadosM1, nroBarcosDescargadosM2, nroBarcosDescargados;
+        private string rndNroLlegadas;
+        private string rndBarcosDescargadosM1;
+        private string rndBarcosDescargadosM2;
+        private int nroLlegadas;
+        private int nroBarcosDescargadosM1;
+        private int nroBarcosDescargadosM2;
+        private int nroBarcosDescargados;
 
         // CANT DE BARCOS
         private int barcosEnPuerto = 0;
         private int barcosSinDescargar = 0;
+        private int barcosDeAyer = 0;
 
         // COSTOS DE DESCARGA
         private string[] parRndCostos;
@@ -37,7 +43,7 @@ namespace TP3_SIM
         private double acCostosTotales = 0;
         private double acCostosDescargas = 0;
         private int acBarcosSinDescargar = 0;
-        private int acDesocupado = 0;
+        private int acOcupado = 0;
         private double acPorcentajeDescargas = 0;
 
         // VARIABLES PARAMETRIZADAS
@@ -52,7 +58,6 @@ namespace TP3_SIM
         private double porcentajeCostosDescarga;
         private double porcentajeDescarga;
         private double promedioCostosTotales;
-        private double promedioBarcosRetrasados;
         private double porcentajeOcupacion;
         private double porcentajeTotalDescargas;
 
@@ -83,8 +88,8 @@ namespace TP3_SIM
         //int cantidadDias, int visualizarDesde, double media, double desviacion, double costoMant, double costoDesocupado
         public (double[], List<Object[]>) generarMontecarloUnMuelle()
         {
-            GeneradorAleatorioBarcos generadorRNDLlegadas = new GeneradorAleatorioBarcos();
-            GeneradorAleatorioBarcos generadorRNDDescargas = new GeneradorAleatorioBarcos();
+            GeneradorAleatorioLlegadas generadorRNDLlegadas = new GeneradorAleatorioLlegadas();
+            GeneradorAleatorioDescargas generadorRNDDescargas = new GeneradorAleatorioDescargas();
             GeneradorNormal generadorNormal = new GeneradorNormal(media, desviacion, 2);
 
             List<Object[]> listadoFilas = new List<Object[]>();
@@ -98,7 +103,38 @@ namespace TP3_SIM
                 (rndNroLlegadas, nroLlegadas) = generadorRNDLlegadas.numeroDeLlegadas();
                 barcosEnPuerto = barcosSinDescargar + nroLlegadas;
 
-                (rndBarcosDescargadosM1, nroBarcosDescargados) = generadorRNDDescargas.numeroDeBarcosDescargados();
+                if ( barcosEnPuerto == 0)
+                {
+                    nroBarcosDescargadosM1 = 0;
+                    rndBarcosDescargadosM1 = "-";
+                    rndCostos = "-";
+                    costoDescarga = 0;
+                }
+                else
+                {
+                    (rndBarcosDescargadosM1, nroBarcosDescargadosM1) = generadorRNDDescargas.numeroDeBarcosDescargados();
+                    if (usados)
+                    {
+                        do
+                        {
+                            (parCostosDescarga, parRndCostos) = generadorNormal.generarDistribucionNormalBM();
+                        } 
+                        while (parCostosDescarga[0] < 0 || parCostosDescarga[1] < 0);
+
+                        rndCostos = parRndCostos[0];
+                        costoDescarga = parCostosDescarga[0];
+                        usados = false;
+                    }
+                    else
+                    {
+                        usados = true;
+                        rndCostos = parRndCostos[1];
+                        costoDescarga = parCostosDescarga[1];
+                    }
+
+                }
+
+                nroBarcosDescargados = nroBarcosDescargadosM1;
 
                 if (nroBarcosDescargados > barcosEnPuerto)
                 {
@@ -109,66 +145,67 @@ namespace TP3_SIM
 
                 // Obtiene los costos según la distribución normal 
                 // Se asegura de usar cada par de números antes de generar uno nuevo
-                if (usados)
-                {
-                    do
-                    {
-                        (parCostosDescarga, parRndCostos) = generadorNormal.generarDistribucionNormalBM();
-                    } while (parCostosDescarga[0] < 0 || parCostosDescarga[1] < 0);
-
-                    rndCostos = parRndCostos[0];
-                    costoDescarga = parCostosDescarga[0];
-                    usados = false;
-                }
-                else
-                {
-                    usados = true;
-                    rndCostos = parRndCostos[1];
-                    costoDescarga = parCostosDescarga[1];
-                }
-
+                
                 costoDescargaTotal = costoDescarga * nroBarcosDescargados;
                 costoMantenimientoTotal = costoMant * barcosSinDescargar;
                 costoDesocupacionTotal = 0;
                 if (barcosSinDescargar == 0)
                 {
-                    costoDesocupacionTotal = costoDesocupado;
-                    // Cuenta un desocupado
-                    acDesocupado++;
+                    costoDesocupacionTotal = costoDesocupado; 
+                    
+                }
+                else
+                {
+                    // Acumula un ocupado
+                    acOcupado++;
                 }
                 costosTotales = costoMantenimientoTotal + costoDesocupacionTotal + costoDescargaTotal;
 
                 // Acumuladores
                 acCostosTotales += costosTotales;
                 acCostosDescargas += costoDescargaTotal;
-                acBarcosSinDescargar += barcosSinDescargar;
-                if (barcosEnPuerto == 0)
+
+                // Acumulador de barcos retrasados
+                if (barcosDeAyer > nroBarcosDescargados)
                 {
-                    porcentajeDescarga = 1;
+                    acBarcosSinDescargar += nroLlegadas;
                 }
                 else
                 {
-                    porcentajeDescarga = nroBarcosDescargados / barcosEnPuerto;
+                    acBarcosSinDescargar += barcosSinDescargar;
                 }
+                
+                if (barcosEnPuerto == 0)
+                {
+                    porcentajeDescarga = 0;
+                }
+                else
+                {
+                
+                    porcentajeDescarga = ((double) nroBarcosDescargados / (double)barcosEnPuerto) * 100;
+                    cantDiasDescarga += 1;
+                }
+
                 acPorcentajeDescargas += porcentajeDescarga;
 
-                if ((i >= visualizarDesde && i <= visualizarDesde + 500) || (i == cantidadDias -1))
+                if ((i >= visualizarDesde - 1 && i <= visualizarDesde + 498) || (i == cantidadDias -1))
                 {                                                                                           
-                    Object[] vectorResultado = { i + 1, rndNroLlegadas, nroLlegadas, barcosEnPuerto, rndBarcosDescargadosM1, nroBarcosDescargados,
+                    Object[] vectorResultado = { i + 1, barcosDeAyer, rndNroLlegadas, nroLlegadas, barcosEnPuerto, rndBarcosDescargadosM1, nroBarcosDescargadosM1, nroBarcosDescargados,
                         barcosSinDescargar, rndCostos, costoDescarga, costoDescargaTotal, costoMantenimientoTotal, costoDesocupacionTotal, 
-                        costosTotales, acCostosDescargas, acCostosTotales, acBarcosSinDescargar, acDesocupado, porcentajeDescarga, acPorcentajeDescargas };
+                        costosTotales, acCostosDescargas, acCostosTotales, acBarcosSinDescargar, acOcupado, porcentajeDescarga, acPorcentajeDescargas };
                     listadoFilas.Add(vectorResultado);
                 }
+
+                barcosDeAyer = barcosSinDescargar;
             }
 
             // Métricas
-            porcentajeCostosDescarga = acCostosDescargas / acCostosTotales;
-            porcentajeTotalDescargas = acPorcentajeDescargas / cantidadDias;
-            promedioCostosTotales = acCostosTotales / cantidadDias;
-            promedioBarcosRetrasados = acBarcosSinDescargar / cantidadDias;
-            porcentajeOcupacion = acDesocupado / cantidadDias;
+            porcentajeCostosDescarga = ((double) acCostosDescargas / (double)acCostosTotales) * 100;
+            porcentajeTotalDescargas =  (double) acPorcentajeDescargas / (double) cantDiasDescarga;
+            promedioCostosTotales = (double) acCostosTotales / cantidadDias;
+            porcentajeOcupacion = ((double) acOcupado / cantidadDias) * 100;
 
-            double [] resultados = { porcentajeCostosDescarga, porcentajeDescarga, promedioCostosTotales, promedioBarcosRetrasados, porcentajeOcupacion};
+            double [] resultados = { porcentajeCostosDescarga, porcentajeTotalDescargas, promedioCostosTotales, acBarcosSinDescargar, porcentajeOcupacion};
             return (resultados, listadoFilas);
         }
 
@@ -179,56 +216,71 @@ namespace TP3_SIM
             List<Object[]> listadoFilas = new List<Object[]>();
 
             GeneradorPoisson generadorPoisson = new GeneradorPoisson(lambda, 1);
-            GeneradorUniforme generadorUniformeM1 = new GeneradorUniforme(desdeUniforme, hastaUniforme, 1);
-            GeneradorUniforme generadorUniformeM2 = new GeneradorUniforme(desdeUniforme, hastaUniforme, 1);
+            GeneradorUniforme generadorUniformeM1 = new GeneradorUniforme(desdeUniforme, hastaUniforme, 1, 8);
+            GeneradorUniforme generadorUniformeM2 = new GeneradorUniforme(desdeUniforme, hastaUniforme, 1, 9);
             GeneradorNormal generadorNormal = new GeneradorNormal(media, desviacion, 2);
             
 
+            parRndCostos = new string[2];
+            parCostosDescarga = new double[2];
+            usados = true;
+
+            double[] auxNro;
+            string[] auxRND;
+
+
             for (int i = 0; i < cantidadDias; i++)
             {
-                double [] auxNro;
-                string [] auxRND;
                 (auxNro, auxRND) = generadorPoisson.generarVariablesAleatorias();
                 nroLlegadas = (int)auxNro[0];
                 rndNroLlegadas = auxRND[0];
                 barcosEnPuerto = barcosSinDescargar + nroLlegadas;
 
-                (auxNro, auxRND) =  generadorUniformeM1.generarRandomUniforme();
-                nroBarcosDescargadosM1 = (int)auxNro[0];
-                rndBarcosDescargadosM1 = auxRND[0];
+                if (barcosEnPuerto == 0)
+                {
+                    nroBarcosDescargadosM1 = 0;
+                    nroBarcosDescargadosM2 = 0;
+                    rndBarcosDescargadosM1 = "-";
+                    rndBarcosDescargadosM2 = "-";
+                    rndCostos = "-";
+                    costoDescarga = 0;
+                }
+                else
+                {
+                    (auxNro, auxRND) = generadorUniformeM1.generarRandomUniforme();
+                    nroBarcosDescargadosM1 = (int)auxNro[0];
+                    rndBarcosDescargadosM1 = auxRND[0];
+                    (auxNro, auxRND) = generadorUniformeM2.generarRandomUniforme();
+                    nroBarcosDescargadosM2 = (int)auxNro[0];
+                    rndBarcosDescargadosM2 = auxRND[0];
 
-                (auxNro, auxRND) = generadorUniformeM2.generarRandomUniforme();
-                nroBarcosDescargadosM2 = (int)auxNro[0];
-                rndBarcosDescargadosM2 = auxRND[0];
+                    // Calcula los costos con distribución normal, usando un valor rnd generado cada vuelta y almacenando el siguiente
+                    if (usados)
+                    {
+                        do
+                        {
+                            (parCostosDescarga, parRndCostos) = generadorNormal.generarDistribucionNormalBM();
+                        } while (parCostosDescarga[0] < 0 || parCostosDescarga[1] < 0);
+
+                        rndCostos = parRndCostos[0];
+                        costoDescarga = parCostosDescarga[0];
+                        usados = false;
+                    }
+                    else
+                    {
+                        usados = true;
+                        rndCostos = parRndCostos[1];
+                        costoDescarga = parCostosDescarga[1];
+                    }
+                }
 
                 nroBarcosDescargados = nroBarcosDescargadosM1 + nroBarcosDescargadosM2;
 
                 if (nroBarcosDescargados > barcosEnPuerto)
                 {
                     nroBarcosDescargados = barcosEnPuerto;
-                } 
-                barcosSinDescargar = barcosEnPuerto - nroBarcosDescargados;
-
-                // Calcula los costos con distribución normal, usando un valor rnd generado cada vuelta y almacenando el siguiente
-                if (usados)
-                {
-                    do
-                    {
-                        (parCostosDescarga, parRndCostos) = generadorNormal.generarDistribucionNormalBM();
-                    } while (parCostosDescarga[0] < 0 || parCostosDescarga[1] < 0);
-
-                    rndCostos = parRndCostos[0];
-                    costoDescarga = parCostosDescarga[0];
-                    usados = false;
-                } 
-                //parRNDCostos = ["0,33 | 0,56", "0,33 | 0,56"]
-                // parCostosDescarga = [ 800, 900 ] 
-                else
-                {
-                    usados = true;
-                    rndCostos = parRndCostos[1];
-                    costoDescarga = parCostosDescarga[1];
                 }
+                barcosSinDescargar = barcosEnPuerto - nroBarcosDescargados;
 
                 costoDescargaTotal = costoDescarga * nroBarcosDescargados;
 
@@ -238,37 +290,59 @@ namespace TP3_SIM
                 if (barcosSinDescargar == 0)
                 {
                     costoDesocupacionTotal = costoDesocupado;
-                    // Cuenta un desocupado
-                    acDesocupado++;
+                }
+                else
+                {
+                    acOcupado++;
                 }
                 costosTotales = costoMantenimientoTotal + costoDesocupacionTotal + costoDescargaTotal;
 
                 // Acumuladores
                 acCostosTotales += costosTotales;
                 acCostosDescargas += costoDescargaTotal;
-                acBarcosSinDescargar += barcosSinDescargar;
-                porcentajeDescarga = nroBarcosDescargados / barcosEnPuerto;
+
+                // Cálculo de barcos retrasados 
+                if (barcosDeAyer > nroBarcosDescargados)
+                {
+                    acBarcosSinDescargar += nroLlegadas;
+                }
+                else
+                {
+                    acBarcosSinDescargar += barcosSinDescargar;
+                }
+
+                if (barcosEnPuerto == 0)   
+                {
+                    porcentajeDescarga = 0;
+                }
+                else
+                {
+                    porcentajeDescarga = ((double) nroBarcosDescargados / (double)barcosEnPuerto ) * 100;
+                    cantDiasDescarga += 1;
+                }
+
                 acPorcentajeDescargas += porcentajeDescarga;
 
-                //VECTOR PARA VISUALIZAR EN PANTALLA
-                if ((i >= visualizarDesde && (i <= (visualizarDesde + 500))) || i == cantidadDias - 1)
+                //Vector para visualizar en pantalla
+                if ((i >= (visualizarDesde - 1) && (i <= (visualizarDesde + 498))) || i == cantidadDias - 1)
                 {
-                    Object[] vectorResultado = { i+1, rndNroLlegadas, nroLlegadas, barcosEnPuerto, rndBarcosDescargadosM1, nroBarcosDescargadosM1, 
+                    Object[] vectorResultado = { i+1, barcosDeAyer, rndNroLlegadas, nroLlegadas, barcosEnPuerto, rndBarcosDescargadosM1, nroBarcosDescargadosM1, 
                         rndBarcosDescargadosM2, nroBarcosDescargadosM2, nroBarcosDescargados, barcosSinDescargar, 
                         rndCostos, costoDescarga, costoDescargaTotal, costoMantenimientoTotal, costoDesocupacionTotal, costosTotales, acCostosDescargas,
-                        acCostosTotales, acBarcosSinDescargar, acDesocupado, porcentajeDescarga, acPorcentajeDescargas};
+                        acCostosTotales, acBarcosSinDescargar, acOcupado, porcentajeDescarga, acPorcentajeDescargas};
                     listadoFilas.Add(vectorResultado);
                 }
+
+                barcosDeAyer = barcosSinDescargar;
             }
 
             //Metricas
-            porcentajeCostosDescarga = acCostosDescargas / acCostosTotales;
-            porcentajeTotalDescargas = acPorcentajeDescargas / cantidadDias;
-            promedioCostosTotales = acCostosTotales / cantidadDias;
-            promedioBarcosRetrasados = acBarcosSinDescargar / cantidadDias;
-            porcentajeOcupacion = acDesocupado / cantidadDias;
+            porcentajeCostosDescarga = ((double) acCostosDescargas / (double)acCostosTotales) * 100;
+            porcentajeTotalDescargas = (double) acPorcentajeDescargas / (double) cantDiasDescarga;
+            promedioCostosTotales = (double) acCostosTotales / (double) cantidadDias;
+            porcentajeOcupacion = ((double) acOcupado / cantidadDias) * 100;
 
-            double [] resultados = { porcentajeCostosDescarga, porcentajeDescarga, promedioCostosTotales, promedioBarcosRetrasados, porcentajeOcupacion };
+            double [] resultados = { porcentajeCostosDescarga, porcentajeTotalDescargas, promedioCostosTotales, acBarcosSinDescargar, porcentajeOcupacion };
             return (resultados, listadoFilas);
 
         }

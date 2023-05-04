@@ -24,7 +24,7 @@ namespace LibGeneradores
         }
 
         // Generador de números pseudoaleatorios
-        private Random random = new Random();
+        private Random random = new Random(DateTime.Now.Millisecond + 4);
         double random1;
         double random2;
 

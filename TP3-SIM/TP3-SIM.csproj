@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeneradorAleatorioBarco.cs" />
+    <Compile Include="GeneradorAleatorioDescargas.cs" />
+    <Compile Include="GeneradorAleatorioLlegadas.cs" />
     <Compile Include="Montecarlo.cs" />
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>

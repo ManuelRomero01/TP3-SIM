@@ -4,3 +4,9 @@ C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\T
 C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\TRABAJO PRÁCTICO\TP3-SIMU\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.csproj.CoreCompileInputs.cache
 C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\TRABAJO PRÁCTICO\TP3-SIMU\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.dll
 C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\TRABAJO PRÁCTICO\TP3-SIMU\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.pdb
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\LibGeneradores\bin\Debug\LibGeneradores.dll
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\LibGeneradores\bin\Debug\LibGeneradores.pdb
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.csproj.AssemblyReference.cache
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.csproj.CoreCompileInputs.cache
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.dll
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\LibGeneradores\obj\Debug\LibGeneradores.pdb

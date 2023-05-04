@@ -12,3 +12,17 @@ C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\T
 C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\TRABAJO PRÁCTICO\TP3-SIMU\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.csproj.CopyComplete
 C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\TRABAJO PRÁCTICO\TP3-SIMU\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.exe
 C:\Users\manur\OneDrive\Desktop\FACULTAD\4 AÑO\MATERIAS\SIMULACIÓN\PRÁCTICO\TRABAJO PRÁCTICO\TP3-SIMU\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.pdb
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\bin\Debug\TP3-SIM.exe.config
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\bin\Debug\TP3-SIM.exe
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\bin\Debug\TP3-SIM.pdb
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\bin\Debug\LibGeneradores.dll
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\bin\Debug\LibGeneradores.pdb
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.csproj.AssemblyReference.cache
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.csproj.SuggestedBindingRedirects.cache
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3_SIM.Principal.resources
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3_SIM.Properties.Resources.resources
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.csproj.GenerateResource.cache
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.csproj.CoreCompileInputs.cache
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.csproj.CopyComplete
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.exe
+D:\DOCUMENTOS\Programacion\TPSimulacion\TP3-SIM\TP3-SIM\obj\Debug\TP3-SIM.pdb
