@@ -30,32 +30,40 @@ namespace LibGeneradores
             string[] y = new string[this.datos];
             for (int i = 0; i < this.datos; i++)
             {
-                x[i] = Math.Truncate(generarValorX() * 10000) / 10000;
-                y[i] = "-";
+                (x[i], y[i]) = generarValorX();
             }
 
             return (x, y);
         }
 
         //Metodo para generar la variable de Poisson
-        public double generarValorX()
+        public (double, string) generarValorX()
         {
             double p = 1;
             double x = -1;
+            string y = "";
+            double u;
             double a = Math.Exp(-(this.lambda));
 
             do
             {
-
-                double u = Math.Truncate(random.NextDouble() * 10000) / 10000;
+               
                 u = Math.Truncate(random.NextDouble() * 10000) / 10000;
                 p = p * u;
                 x = x + 1;
+                if (x == 0)
+                {
+                    y += u;
+                }
+                else
+                {
+                    y += "  |  " + u;
+                }
 
 
             } while (p >= a);
 
-            return x;
+            return (x, y);
         }
     }
 }

@@ -52,6 +52,7 @@ namespace TP3_SIM
         {
             // UN MUELLE
             dataTableUnMuelle.Columns.Add("Numero Experimento", typeof(int));
+            dataTableUnMuelle.Columns.Add("Barcos de ayer", typeof(int));
             dataTableUnMuelle.Columns.Add("RND nro de llegadas", typeof(string));
             dataTableUnMuelle.Columns.Add("Nro de llegadas", typeof(int));
             dataTableUnMuelle.Columns.Add("Barcos en el puerto", typeof(int));
@@ -78,6 +79,7 @@ namespace TP3_SIM
 
             // DOS MUELLES
             dataTableDosMuelles.Columns.Add("Numero Experimento", typeof(int));
+            dataTableDosMuelles.Columns.Add("Barcos de ayer", typeof(int));
             dataTableDosMuelles.Columns.Add("RND nro de llegadas", typeof(string));
             dataTableDosMuelles.Columns.Add("Nro de llegadas", typeof(int));
             dataTableDosMuelles.Columns.Add("Barcos en el puerto", typeof(int));
@@ -117,28 +119,29 @@ namespace TP3_SIM
                 DataRow row = dataTableUnMuelle.NewRow();
 
                 row["Numero Experimento"] = vector[i][0];
-                row["RND nro de llegadas"] = vector[i][1];
-                row["Nro de llegadas"] = vector[i][2];
-                row["Barcos en el puerto"] = vector[i][3];
+                row["Barcos de ayer"] = vector[i][1];
+                row["RND nro de llegadas"] = vector[i][2];
+                row["Nro de llegadas"] = vector[i][3];
+                row["Barcos en el puerto"] = vector[i][4];
                 // descargas
-                row["RND barcos descargados"] = vector[i][4];
-                row["Nro Barcos descargados"] = vector[i][5];
-                row["Nro Barcos efectivamente descargados"] = vector[i][6];
-                row["Barcos sin descargar"] = vector[i][7];
+                row["RND barcos descargados"] = vector[i][5];
+                row["Nro Barcos descargados"] = vector[i][6];
+                row["Nro Barcos efectivamente descargados"] = vector[i][7];
+                row["Barcos sin descargar"] = vector[i][8];
                 // costos
-                row["RND Costo"] = vector[i][8];
-                row["Costo por barco"] = (Math.Truncate((double)vector[i][9] * 10000) / 10000).ToString();
-                row["Costo total de descarga"] = (Math.Truncate((double)vector[i][10] * 10000) / 10000).ToString();
-                row["Costo Mantenimiento"] = vector[i][11];
-                row["Costo Desocupacion"] = vector[i][12];
-                row["Costos totales"] = (Math.Truncate((double)vector[i][13] * 10000) / 10000).ToString();
+                row["RND Costo"] = vector[i][9];
+                row["Costo por barco"] = (Math.Truncate((double)vector[i][10] * 10000) / 10000).ToString();
+                row["Costo total de descarga"] = (Math.Truncate((double)vector[i][11] * 10000) / 10000).ToString();
+                row["Costo Mantenimiento"] = vector[i][12];
+                row["Costo Desocupacion"] = vector[i][13];
+                row["Costos totales"] = (Math.Truncate((double)vector[i][14] * 10000) / 10000).ToString();
                 // resultados
-                row["Acumulador costo de descarga"] = (Math.Truncate((double)vector[i][14] * 10000) / 10000).ToString();
-                row["Acumulador de costos totales"] = (Math.Truncate((double)vector[i][15] * 10000) / 10000).ToString();
-                row["Acumulador de barcos sin descargar"] = vector[i][16];
-                row["Acumulador ocupado"] = vector[i][17];
-                row["Porcentaje de descarga"] = (Math.Truncate((double)vector[i][18] * 10000) / 10000).ToString();
-                row["Acumulador de porcentaje de descarga"] = (Math.Truncate((double)vector[i][19] * 10000) / 10000).ToString();
+                row["Acumulador costo de descarga"] = (Math.Truncate((double)vector[i][15] * 10000) / 10000).ToString();
+                row["Acumulador de costos totales"] = (Math.Truncate((double)vector[i][16] * 10000) / 10000).ToString();
+                row["Acumulador de barcos sin descargar"] = vector[i][17];
+                row["Acumulador ocupado"] = vector[i][18];
+                row["Porcentaje de descarga"] = (Math.Truncate((double)vector[i][19] * 10000) / 10000).ToString();
+                row["Acumulador de porcentaje de descarga"] = (Math.Truncate((double)vector[i][20] * 10000) / 10000).ToString();
 
                 dataTableUnMuelle.Rows.Add(row);
             }
@@ -156,30 +159,31 @@ namespace TP3_SIM
                 DataRow row = dataTableDosMuelles.NewRow();
 
                 row["Numero Experimento"] = vector[i][0];
-                row["RND nro de llegadas"] = vector[i][1];
-                row["Nro de llegadas"] = vector[i][2];
-                row["Barcos en el puerto"] = vector[i][3];
+                row["Barcos de ayer"] = vector[i][1];
+                row["RND nro de llegadas"] = vector[i][2];
+                row["Nro de llegadas"] = vector[i][3];
+                row["Barcos en el puerto"] = vector[i][4];
                 // descargas
-                row["RND barcos descargados Muelle 1"] = vector[i][4];
-                row["Barcos descargados Muelle 1"] = vector[i][5];
-                row["RND barcos descargados Muelle 2"] = vector[i][6];
-                row["Barcos descargados Muelle 2"] = vector[i][7];
-                row["Barcos descargados"] = vector[i][8];
-                row["Barcos sin descargar"] = vector[i][9];
+                row["RND barcos descargados Muelle 1"] = vector[i][5];
+                row["Barcos descargados Muelle 1"] = vector[i][6];
+                row["RND barcos descargados Muelle 2"] = vector[i][7];
+                row["Barcos descargados Muelle 2"] = vector[i][8];
+                row["Barcos descargados"] = vector[i][9];
+                row["Barcos sin descargar"] = vector[i][10];
                 // costos
-                row["RND Costo"] = vector[i][10];
-                row["Costo por barco"] = (Math.Truncate((double)vector[i][11] * 10000) / 10000).ToString();
-                row["Costo total de descarga"] = (Math.Truncate((double)vector[i][12] * 10000) / 10000).ToString();
-                row["Costo Mantenimiento"] = vector[i][13];
-                row["Costo Desocupacion"] = vector[i][14];
-                row["Costos totales"] = (Math.Truncate((double)vector[i][15] * 10000) / 10000).ToString();
+                row["RND Costo"] = vector[i][11];
+                row["Costo por barco"] = (Math.Truncate((double)vector[i][12] * 10000) / 10000).ToString();
+                row["Costo total de descarga"] = (Math.Truncate((double)vector[i][13] * 10000) / 10000).ToString();
+                row["Costo Mantenimiento"] = vector[i][14];
+                row["Costo Desocupacion"] = vector[i][15];
+                row["Costos totales"] = (Math.Truncate((double)vector[i][16] * 10000) / 10000).ToString();
                 // resultados
-                row["Acumulador costo de descarga"] = (Math.Truncate((double)vector[i][16] * 10000) / 10000).ToString();
-                row["Acumulador de costos totales"] = (Math.Truncate((double)vector[i][17] * 10000) / 10000).ToString();
-                row["Acumulador de barcos sin descargar"] = vector[i][18];
-                row["Acumulador ocupado"] = vector[i][19];
-                row["Porcentaje de descarga"] = (Math.Truncate((double)vector[i][20] * 10000) / 10000).ToString();
-                row["Acumulador de porcentaje de descarga"] = (Math.Truncate((double)vector[i][21] * 10000) / 10000).ToString();
+                row["Acumulador costo de descarga"] = (Math.Truncate((double)vector[i][17] * 10000) / 10000).ToString();
+                row["Acumulador de costos totales"] = (Math.Truncate((double)vector[i][18] * 10000) / 10000).ToString();
+                row["Acumulador de barcos sin descargar"] = vector[i][19];
+                row["Acumulador ocupado"] = vector[i][20];
+                row["Porcentaje de descarga"] = (Math.Truncate((double)vector[i][21] * 10000) / 10000).ToString();
+                row["Acumulador de porcentaje de descarga"] = (Math.Truncate((double)vector[i][22] * 10000) / 10000).ToString();
 
                 dataTableDosMuelles.Rows.Add(row);
             }
@@ -225,42 +229,42 @@ namespace TP3_SIM
             if (txtDesde.Text == "" || int.Parse(txtDesde.Text) <= 0)
             {
                 bandera = true;
-                mensaje += ", Desde";
+                mensaje += "  Desde";
             }            
             if(txtMantenimiento.Text == "" || int.Parse(txtMantenimiento.Text) < 0)
             {
                 bandera = true;
-                mensaje += ", Costo de mantenimiento";
+                mensaje += "  Costo de mantenimiento";
             }            
             if(txtDesocupacion.Text == "" || int.Parse(txtDesocupacion.Text) < 0)
             {
                 bandera = true;
-                mensaje += ", Costo de desocupacion";
+                mensaje += "  Costo de desocupacion";
             }            
             if(txtMedia.Text == "" || int.Parse(txtMedia.Text) < 0)
             {
                 bandera = true;
-                mensaje += ", Media";
+                mensaje += "  Media";
             }            
             if(txtDesviacion.Text == "" || int.Parse(txtDesviacion.Text) < 0)
             {
                 bandera = true;
-                mensaje += ", Desviacion";
+                mensaje += "  Desviacion";
             }            
             if(txtA.Text == "" || int.Parse(txtA.Text) < 0)
             {
                 bandera = true;
-                mensaje += ", A";
+                mensaje += "  A";
             }            
             if(txtB.Text == "" || int.Parse(txtB.Text) < 1)
             {
                 bandera = true;
-                mensaje += ", B";
+                mensaje += "  B";
             }
             if (txtLambda.Text == "" || int.Parse(txtLambda.Text) < 0)
             {
                 bandera = true;
-                mensaje += ", Lambda";
+                mensaje += "  Lambda";
             }
 
             if (bandera)
