@@ -45,6 +45,7 @@ namespace TP3_SIM
             txtLambda.Text = "2";
 
             toolTip1 = new System.Windows.Forms.ToolTip();
+            
         }
         
 
@@ -196,7 +197,7 @@ namespace TP3_SIM
 
         public void populateDataTableMetricas(double[] vectorUnMuelle, double[] vectorDosMuelles)
         {
-            string[] metricas = { "Porcentaje costo descarga", "Porcentaje descarga", "Promedio costo totales", "Cant. de barcos descargados con retraso", "Porcentaje ocupacion" };
+            string[] metricas = { "Porcentaje costo descarga", "Porcentaje descarga", "Promedio costo totales", "Cant. de barcos retrasados", "Porcentaje ocupacion" };
 
             for (int i = 0; i < 5; i++)
             {
@@ -210,6 +211,7 @@ namespace TP3_SIM
 
             gdrMetricas.DataSource = dataTableMetricas;
             gdrMetricas.Visible = true;
+            
 
             gdrMetricas.Refresh();
         }
@@ -226,7 +228,7 @@ namespace TP3_SIM
                 mensaje += "Cantidad de simulaciones";
             }
             
-            if (txtDesde.Text == "" || int.Parse(txtDesde.Text) <= 0)
+            if (txtDesde.Text == "" || int.Parse(txtDesde.Text) <= 0 || int.Parse(txtDesde.Text) > int.Parse(txtCantSimulaciones.Text))
             {
                 bandera = true;
                 mensaje += "  Desde";
@@ -269,7 +271,7 @@ namespace TP3_SIM
 
             if (bandera)
             {
-                MessageBox.Show("Las siguientes variables estan vacias o son negativas:\n" + mensaje);
+                MessageBox.Show("Las siguientes variables tienen un valor inválido:\n" + mensaje);
                 return false;
             }
             return true;
@@ -295,7 +297,7 @@ namespace TP3_SIM
             dataTableUnMuelle = new DataTable();
             dataTableDosMuelles = new DataTable();
             dataTableMetricas = new DataTable();
-
+            
             createDataTable();
 
             if (validarNegativosYVacios() && validarRangos())
@@ -337,7 +339,7 @@ namespace TP3_SIM
             }
             else if (e.RowIndex == 3)
             {
-                message = "Acumulador de barcos sin descargar";
+                message = "Acumulador de barcos retrasados";
             }
             else if (e.RowIndex == 4)
             {

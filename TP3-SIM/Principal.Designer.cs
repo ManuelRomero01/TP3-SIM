@@ -109,7 +109,7 @@
             this.btnVisualizar.Margin = new System.Windows.Forms.Padding(1);
             this.btnVisualizar.Name = "btnVisualizar";
             this.btnVisualizar.Size = new System.Drawing.Size(193, 58);
-            this.btnVisualizar.TabIndex = 1;
+            this.btnVisualizar.TabIndex = 3;
             this.btnVisualizar.Text = "Visualizar";
             this.btnVisualizar.UseVisualStyleBackColor = true;
             this.btnVisualizar.Click += new System.EventHandler(this.btnVisualizar_Click);
@@ -143,7 +143,7 @@
             this.txtDesde.Mask = "9999999";
             this.txtDesde.Name = "txtDesde";
             this.txtDesde.Size = new System.Drawing.Size(103, 20);
-            this.txtDesde.TabIndex = 5;
+            this.txtDesde.TabIndex = 2;
             this.txtDesde.ValidatingType = typeof(int);
             // 
             // label3
@@ -221,12 +221,12 @@
             // 
             // txtCantSimulaciones
             // 
-            this.txtCantSimulaciones.Location = new System.Drawing.Point(225, 43);
+            this.txtCantSimulaciones.Location = new System.Drawing.Point(229, 41);
             this.txtCantSimulaciones.Margin = new System.Windows.Forms.Padding(1);
             this.txtCantSimulaciones.Mask = "9999999";
             this.txtCantSimulaciones.Name = "txtCantSimulaciones";
             this.txtCantSimulaciones.Size = new System.Drawing.Size(103, 20);
-            this.txtCantSimulaciones.TabIndex = 12;
+            this.txtCantSimulaciones.TabIndex = 1;
             this.txtCantSimulaciones.ValidatingType = typeof(int);
             // 
             // label6
@@ -290,7 +290,7 @@
             this.txtMedia.Margin = new System.Windows.Forms.Padding(1);
             this.txtMedia.Name = "txtMedia";
             this.txtMedia.Size = new System.Drawing.Size(103, 20);
-            this.txtMedia.TabIndex = 19;
+            this.txtMedia.TabIndex = 4;
             // 
             // txtDesviacion
             // 
@@ -298,7 +298,7 @@
             this.txtDesviacion.Margin = new System.Windows.Forms.Padding(1);
             this.txtDesviacion.Name = "txtDesviacion";
             this.txtDesviacion.Size = new System.Drawing.Size(103, 20);
-            this.txtDesviacion.TabIndex = 20;
+            this.txtDesviacion.TabIndex = 5;
             // 
             // label11
             // 
@@ -317,7 +317,7 @@
             this.txtMantenimiento.Margin = new System.Windows.Forms.Padding(1);
             this.txtMantenimiento.Name = "txtMantenimiento";
             this.txtMantenimiento.Size = new System.Drawing.Size(103, 20);
-            this.txtMantenimiento.TabIndex = 23;
+            this.txtMantenimiento.TabIndex = 6;
             // 
             // label12
             // 
@@ -346,7 +346,7 @@
             this.txtDesocupacion.Margin = new System.Windows.Forms.Padding(1);
             this.txtDesocupacion.Name = "txtDesocupacion";
             this.txtDesocupacion.Size = new System.Drawing.Size(103, 20);
-            this.txtDesocupacion.TabIndex = 25;
+            this.txtDesocupacion.TabIndex = 7;
             // 
             // grdDosMuelles
             // 
@@ -393,7 +393,7 @@
             this.txtB.Margin = new System.Windows.Forms.Padding(1);
             this.txtB.Name = "txtB";
             this.txtB.Size = new System.Drawing.Size(103, 20);
-            this.txtB.TabIndex = 31;
+            this.txtB.TabIndex = 9;
             // 
             // txtA
             // 
@@ -401,7 +401,7 @@
             this.txtA.Margin = new System.Windows.Forms.Padding(1);
             this.txtA.Name = "txtA";
             this.txtA.Size = new System.Drawing.Size(103, 20);
-            this.txtA.TabIndex = 30;
+            this.txtA.TabIndex = 8;
             // 
             // label15
             // 
@@ -432,7 +432,7 @@
             this.txtLambda.Mask = "999";
             this.txtLambda.Name = "txtLambda";
             this.txtLambda.Size = new System.Drawing.Size(103, 20);
-            this.txtLambda.TabIndex = 32;
+            this.txtLambda.TabIndex = 10;
             this.txtLambda.ValidatingType = typeof(int);
             // 
             // label2
